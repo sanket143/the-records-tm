@@ -5,6 +5,7 @@ CTrackManiaPlayerInfo@ NetPIToTrackmaniaPI(CGameNetPlayerInfo@ netpi) {
 MwFastBuffer<CMapRecord@> playerScores = MwFastBuffer<CMapRecord@>();
 array<LeaderboardPlayer@> leaderboardPlayers; 
 array<string> listedUserIdsStrArray;
+string currentPlayerUserId;
 
 class LeaderboardPlayer {
   int Rank;
@@ -171,7 +172,11 @@ void Render() {
     for(uint i = 0; i < leaderboardPlayers.Length; i++){
       UI::TableNextRow();
       UI::TableNextColumn();
-      UI::Text(leaderboardPlayers[i].Player.DisplayName);
+      if(leaderboardPlayers[i].Player.AccountID == currentPlayerUserId){
+        UI::Text((leaderboardPlayers[i].Player.AccountID == currentPlayerUserId ? "\\$0ff" : "") + leaderboardPlayers[i].Player.DisplayName);
+      } else {
+        UI::Text(leaderboardPlayers[i].Player.DisplayName);
+      }
       UI::TableNextColumn();
       UI::Text(leaderboardPlayers[i].getTime());
     }
@@ -194,8 +199,9 @@ void RefreshScores(){
   auto userMgr = network.ClientManiaAppPlayground.UserMgr;
   auto userId = userMgr.Users[0].Id;
 
-  if(listedUserIdsStrArray.Find(network.PlayerInfo.WebServicesUserId) < 0){
-    listedUserIdsStrArray.InsertLast(network.PlayerInfo.WebServicesUserId);
+  currentPlayerUserId = network.PlayerInfo.WebServicesUserId;
+  if(listedUserIdsStrArray.Find(currentPlayerUserId) < 0){
+    listedUserIdsStrArray.InsertLast(currentPlayerUserId);
   }
 
   for(uint i = 0; i < listedUserIdsStrArray.Length; i++){
