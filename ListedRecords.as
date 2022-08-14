@@ -110,7 +110,6 @@ void Render() {
 
     UI::BeginGroup();
     if(startSearch){
-      print(searchText);
       tmioSearchResult = {};
       startnew(SearchTMIOForPlayers);
     }
@@ -128,7 +127,6 @@ void Render() {
           UI::PushID("TMIOSearchResult_" + tostring(i));
           if(UI::Button("+", vec2(22.0, 22.0))){
             shouldRefreshList = true;
-            print(tmioSearchResult[i].AccountID);
             listedUserIdsStrArray.InsertLast(tmioSearchResult[i].AccountID);
           }
           UI::PopID();
@@ -162,7 +160,7 @@ void Render() {
     UI::End();
   }
 
-  UI::Begin("Listed Records", windowFlags);
+  UI::Begin("The Records", windowFlags);
   UI::BeginGroup();
 
   if(UI::BeginTable("header", 2, UI::TableFlags::SizingFixedFit)){
@@ -244,10 +242,5 @@ void RefreshScores(){
 
 void Main() {
   // \\$0ff
-
-  listedUserIdsStrArray.InsertLast("79976f5d-179d-4578-baed-7dfd253bca35");
-  listedUserIdsStrArray.InsertLast("17cebbbb-2637-4110-ba67-f733de4559ea");
-  listedUserIdsStrArray.InsertLast("b02c5f84-0a0c-4931-b5ba-1d68bf9c3b91");
-  listedUserIdsStrArray.InsertLast("6a7a889f-cbff-4910-b369-a4201de53cb8");
   RefreshScores();
 }
