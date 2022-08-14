@@ -167,7 +167,7 @@ void Render() {
   if(UI::BeginTable("header", 2, UI::TableFlags::SizingFixedFit)){
     UI::TableNextRow();
     UI::TableNextColumn();
-    UI::Markdown("#### Listed Records");
+    UI::Markdown("#### The Records");
 
     for(uint i = 0; i < leaderboardPlayers.Length; i++){
       UI::TableNextRow();
